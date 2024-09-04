@@ -1,0 +1,16 @@
+<odoo>
+
+    <!--             =========  First Tier ========-->
+
+    <menuitem id="task_app"
+              name="Task Manager"
+    web_icon="task_manager_module.static/description/icon.png"
+    />
+
+
+<!--              ========= Second Tier ========-->
+
+    <menuitem id="menu_task_tickets_all"
+              name="Tasks"
+              parent="task_app"/>
+</odoo>

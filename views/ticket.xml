@@ -1,0 +1,66 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="task_view_tree" model="ir.ui.view">
+        <field name="name">task.view.tree</field>
+        <field name="model">task.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="number"/>
+                <field name="tag"/>
+                <field name="assign_to"/>
+                <field name="state" widget="badge"
+                       decoration-danger="state == 'start'"
+                       decoration-warning="state == 'in_progress'"
+                       decoration-success="state == 'complete'"/>
+                <field name="priority" widget="badge"
+                       decoration-danger="priority == 'high'"
+                       decoration-warning="priority == 'medium'"
+                       decoration-success="priority == 'low'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="task_view_form" model="ir.ui.view">
+        <field name="name">task.view.form</field>
+        <field name="model">task.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start" type="object" class="btn-primary" string="Start"
+                            invisible="state in ('in_progress', 'complete')"/>
+                    <button name="action_progress" type="object" class="btn-secondary" string="In Progress"
+                            invisible="state != 'start'"/>
+                    <button name="action_complete" type="object" class="btn-success" string="Complete"
+                            invisible="state != 'in_progress'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="number"/>
+                        <field name="tag"/>
+                        <field name="assign_to"/>
+                        <field name="file"/>
+                        <field name="description"/>
+                        <field name="state"/>
+                        <field name="start_time"/>
+                        <field name="deadline"/>
+                        <field name="priority"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="task_ticket_action" model="ir.actions.act_window">
+        <field name="name">Task Tickets</field>
+        <field name="res_model">task.ticket</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_task_ticket" name="All Tasks" parent="menu_task_tickets_all" action="task_ticket_action"/>
+</odoo>
